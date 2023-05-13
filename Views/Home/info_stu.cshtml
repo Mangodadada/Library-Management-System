@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "info_stu";
+}
+<div class="my-intro-container">
+    <div class="my-intro-h1">
+        <h1>
+            @ViewBag.notice.TITLE
+        </h1>
+    </div>
+    <div class="my-main-turn">
+        发布时间：@ViewBag.notice.Year/@ViewBag.notice.Mouth/@ViewBag.notice.Day
+    </div>
+    <div style="border:1px solid blue;"></div>
+    <div class="my-intro-text">
+        <p style="text-indent: 2em">
+            @ViewBag.notice.CONTENT
+        </p>
+        @*<p style="text-indent: 2em">
+            @ViewBag.order
+        </p>*@
+    </div>
+</div>
+

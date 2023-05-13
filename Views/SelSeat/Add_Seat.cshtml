@@ -1,0 +1,72 @@
+﻿<!--指定页面Model属性的类型-->
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>修改</title>
+    <style type="text/css">
+        #tbList {
+            border: 1px solid #0094ff;
+            width: 400px;
+            margin: 10px auto; /*上下10px；左右水平居中*/
+            border-collapse: collapse; /*设置为收缩边框*/
+        }
+
+            #tbList th, td {
+                border: 1px solid #0094ff;
+                padding: 10px; /*将内容与单元格填充开*/
+            }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Add2", "Seat", FormMethod.Post))
+    {
+        <table id="tbList">
+            <tr>
+                <td>新增座位的房间号：</td>
+                <!--使用HTMLHelper的强类型方法，直接从Model中根据属性生成文本框-->
+                <td>
+                    <input type="text" list="itemlist" name="add_roomid">
+
+                    <datalist id="itemlist">
+                        @foreach (var rd in ViewBag.CateList)
+                        {
+                            <option>@rd</option>
+                        }
+
+                    </datalist>
+                </td>
+
+            </tr>
+            <tr>
+                <td>新增座位的座位号：</td>
+                <!--使用HTMLHelper的强类型方法，直接从Model中根据属性生成文本框-->
+                <td><input type="text" name="add_seatid"></td>
+            </tr>
+            <tr>
+                <td>新增座位的状态：</td>
+                <!--使用HTMLHelper的强类型方法，直接从Model中根据属性生成文本框-->
+                <td>
+                    <input type="text" list="itemlist2" name="add_state">
+
+                    <datalist id="itemlist2">
+
+                        <option>空闲</option>
+                        <option>使用中</option>
+
+
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="添加" />@Html.ActionLink("返回", "Index", "Home")</td>
+            </tr>
+
+        </table>
+    }
+</body>
+</html>

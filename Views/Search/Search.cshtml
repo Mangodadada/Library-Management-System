@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+@using library_admin.Models
+@using library_admin.common
+
+@*搜索框*@
+<div class="my-search-header">
+    <a href="/Home/Index" style="width:100px;height:50px;margin:auto 15px;color:white;float:left;font-size:24px;">首页</a>
+    <form class="my-search" action="/Search/Search" method="get">
+        <select name="search-sort">
+            @if (ViewBag.bk_type == "TITLE")
+            {
+                <option value="TITLE" selected>书名</option>
+}
+            else
+            {
+                <option value="TITLE">书名</option>
+}
+            @if (ViewBag.bk_type == "AUTHOR")
+            {
+                <option value="AUTHOR" selected>作者</option>
+}
+            else
+            {
+                <option value="AUTHOR">作者</option>
+}
+            @if (ViewBag.bk_type == "PUBLISH")
+            {
+                <option value="PUBLISH" selected>出版社</option>
+}
+            else
+            {
+                <option value="PUBLISH">出版社</option>
+}
+            @if (ViewBag.bk_type == "ISBN")
+            {
+                <option value="ISBN" selected>ISBN</option>
+}
+            else
+            {
+                <option value="ISBN">ISBN</option>
+}
+            @if (ViewBag.bk_type == "CALL_NUMBER")
+            {
+                <option value="CALL_NUMBER" selected>索书号</option>
+ }
+            else
+            {
+                <option value="CALL_NUMBER">索书号</option>
+}
+        </select>
+        <input type="text" placeholder="搜索图书..." name="search" value=@ViewBag.bk_condition>
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<div class="my-index-header" style="border:1px solid blue;"></div>
+
+@*搜索列表*@
+<div class="my-search-row">
+    <div class="my-search-side">
+        <h3>分类</h3>
+        @if (ViewBag.bk_category != null)
+        {
+            <p color="blue">(共搜寻到 @ViewBag.bk_count 条结果)</p>
+            <br />
+            <input type="hidden" name="search" value=@ViewBag.bk_condition />
+            <input type="hidden" name="search-sort" value=@ViewBag.bk_type />
+            <input type="hidden" name="sort" value=@ViewBag.bk_sort />
+            <input type="hidden" name="order" value=@ViewBag.bk_isAsc />
+            foreach (var item in (List<book_category>)ViewBag.bk_category)
+            {
+                <a href="?_class=@item.type">
+                    @item.type
+                </a><label display:inline>(@item.num)</label>
+                <br />
+            }
+            <br />
+            <a href="/Search/Search?del=1" >清空筛选</a>
+        }
+    </div>
+    <div class="my-search-main">
+        @using(Html.BeginForm("Search","Search", FormMethod.Get)) {
+        <div class="my-search-box">
+            <label class="my-sortbn">排序：</label>
+            <select name="sort">
+                @*
+        @if (ViewBag.bk_sort == "TITLE")
+        {<option value="TITLE" selected>书名</option>}
+        else
+        {<option value="TITLE">书名</option>}
+        @if (ViewBag.bk_sort == "AUTHOR")
+        {<option value="AUTHOR" selected>作者</option>}
+        else
+        {<option value="AUTHOR">作者</option>}
+        @if (ViewBag.bk_sort == "PUBLISH")
+        {<option value="PUBLISH" selected>出版社</option>}
+        else
+        {<option value="PUBLISH">出版社</option>}*@
+                @if (ViewBag.bk_sort == "COMMON")
+                {
+                    <option value="COMMON" selected>默认排序</option>
+                }
+                else
+                {
+                    <option value="COMMON"> 默认排序 </option>
+                }
+                @if (ViewBag.bk_sort == "PUBLISH_DATE")
+                {
+                    <option value="PUBLISH_DATE" selected>出版日期</option>
+                }
+                else
+                {
+                    <option value="PUBLISH_DATE">出版日期</option>
+                }
+            </select>
+            <select name="order">
+                @if(ViewBag.bk_isAsc == true)
+                {<option value="ASC" selected>升序</option>}
+                else
+                {<option value="ASC">升序</option>}
+                @if(ViewBag.bk_isAsc == false)
+                {<option value="DESC" selected>降序</option>}
+                else
+                {<option value="DESC">降序</option>}
+            </select>
+            <input type="hidden" name="_class" value=@ViewBag.bk_class />
+            <input type="submit" name="selected" class="select-btn" value="排列" />
+        </div>
+        }
+    <div>
+        @for (int i = 0; i < ViewBag.bk_pcount; i++)
+        {
+            <HR align=center width=100% color=#ccc SIZE=1>
+            <a href="/Search/Book?isbn=@ViewBag.booklist[i].isbn"><h4>@ViewBag.booklist[i].book_name</h4></a>
+            <h5>作者: @ViewBag.booklist[i].author</h5>
+            <h5>出版社: @ViewBag.booklist[i].publish</h5>
+            <h5>出版日期: @ViewBag.booklist[i].publish_date</h5>
+            <p>索书号:@ViewBag.booklist[i].call_number</p>
+        }
+    <div class="page-icon">
+        <input type="hidden" name="search" value=@ViewBag.bk_condition />
+        <input type="hidden" name="search-sort" value=@ViewBag.bk_type />
+        <input type="hidden" name="sort" value=@ViewBag.bk_sort />
+        <input type="hidden" name="order" value=@ViewBag.bk_isAsc />
+        <input type="hidden" name="_class" value=@ViewBag.bk_class />
+        @if (ViewBag.bk_pagecount > 1)
+        {
+        <a href="/?pageindex = 1">首页</a>
+        @MvcHtmlString.Create(pagebar.getpagebar((int)ViewBag.bk_pageindex, (int)ViewBag.bk_pagecount))
+        <a href="?pageindex=@ViewBag.bk_pagecount">尾页</a>
+        }
+    </div>
+    </div>
+    </div>
+
+</div>
+
+
+
+
+

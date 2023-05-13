@@ -1,0 +1,147 @@
+﻿
+
+
+@* 详情局部页面 *@
+<div style="overflow:auto;">
+    <div style="padding:10px;">
+        @* 个人简介 *@
+        <h1>个人简介</h1>
+        <h2 style="color:#545454;">姓名：@ViewBag.Detail.name</h2>
+        <h2 style="color:#545454;">ID：@ViewBag.Detail.id</h2>
+        <h2 style="color:#545454;">信用：@ViewBag.Detail.credit</h2>
+        <table>
+            <thead>
+                <tr>
+                    <td>可预约书籍数目</td>
+                    <td>可借阅书籍数目</td>
+                    <td>可借阅书籍时间</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@ViewBag.Detail.limit_re_book_amount</td>
+                    <td>@ViewBag.Detail.limit_use_book_amount</td>
+                    <td>@ViewBag.Detail.limit_use_book_time</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="padding:10px;">
+        @* 预定or借阅书目 *@
+        <h1>相关书目</h1>
+        <h2 style="text-align:center;">未归还</h2>
+            <table>
+                <thead>
+                    <tr>
+                    <td>ISBN</td>
+                    <td>名称</td>
+                    <td>出版社</td>
+                    <td>作者</td>
+                    <td>借出</td>
+                    @*<td>预定</td>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Detail.books)
+                    {
+                        if (item.return_date == "")
+                        {
+                            <tr>
+                                <td>@item.ISBN</td>
+                                <td>@item.name</td>
+                                <td>@item.publish</td>
+                                <td>@item.author</td>
+                                <td>@item.borrow_date</td>
+                                @*<td>@item.expect_date</td>*@
+                            </tr>
+                        }
+                     }
+                </tbody>
+            </table>
+        <h2 style="text-align:center;">已归还</h2>
+        <table>
+            <thead>
+                <tr>
+                    <td>ISBN</td>
+                    <td>名称</td>
+                    <td>出版社</td>
+                    <td>作者</td>
+                    <td>借出时间</td>
+                    <td>归还时间</td>
+                    @*<td>预定</td>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Detail.books)
+                {
+                    if (item.return_date !="")
+                    {
+                        <tr>
+                            <td>@item.ISBN</td>
+                            <td>@item.name</td>
+                            <td>@item.publish</td>
+                            <td>@item.author</td>
+                            <td>@item.borrow_date</td>
+                            <td>@item.return_date</td>
+                            @*<td>@item.expect_date</td>*@
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <h2 style="text-align:center;">预定</h2>
+        <table>
+            <thead>
+                <tr>
+                    <td>ISBN</td>
+                    <td>名称</td>
+                    <td>出版社</td>
+                    <td>作者</td>
+                    @*<td>借出</td>*@
+                    <td>预定时间</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Detail.books)
+                {
+                    if (item.borrow_date == "")
+                    {
+                        <tr>
+                            <td>@item.ISBN</td>
+                            <td>@item.name</td>
+                            <td>@item.publish</td>
+                            <td>@item.author</td>
+                            @*<td>@item.borrow_date</td>*@
+                            <td>@item.expect_date</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="padding:10px;">
+        @* 预定or使用自习室 *@
+        <h1>自习室</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>自习室名称</td>
+                    <td>座位</td>
+                    <td>操作</td>
+                    <td>操作时间</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in ViewBag.Detail.rooms)
+                {
+                    <tr>
+                        <td>@item.room_id</td>
+                        <td>@item.seat_id</td>
+                        <td>@item.op</td>
+                        <td>@item.time</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "feed_stu";
+}
+<div class="my-feed-div" style="height:940px;">
+    <div style="font-size:36px;text-align:center;height:80px;line-height:80px;">
+        感谢您的反馈
+    </div>
+    <div style="border:1px solid blue;"></div>
+    <form name="admin-form" method="post" action="/Home/Index" style="background-color:white;" onsubmit="return validateForm()">
+        <div class="my-admin-ts">
+            请输入主题（简而言之，您的反馈是什么？）
+        </div>
+        <input name="feed_title" type="text" class="my-amin-title">
+        <div class="my-admin-ts">
+            请输入内容
+        </div>
+        <textarea name="feed_content" type="text" class="my-feed-content">
+        </textarea>
+        <div class="my-admin-ts">
+            请输入您的姓名
+        </div>
+        <input name="feed_name" type="text" class="my-amin-title">
+        <div class="my-admin-ts">
+            请输入您的电话号码
+        </div>
+        <input name="feed_tel" type="tel" class="my-amin-title">
+        <div class="my-admin-ts">
+            请输入您的邮箱
+        </div>
+        <input name="feed_mail" type="email" class="my-amin-title">
+        <input class="my-admin-button" type="submit" value="提交" style="margin-top:15px;"/>
+        <a class="my-admin-a" href="/Home/Index" style="margin-top:15px;">取消</a>
+    </form>
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript">
+        function validateForm() {
+            var title = document.forms["admin-form"]["feed_title"].value;
+            var content = document.forms["admin-form"]["feed_content"].value;
+            var name = document.forms["admin-form"]["feed_name"].value;
+            //var tel = document.forms["admin-form"]["feed_tel"].value;
+            var mail = document.forms["admin-form"]["feed_mail"].value;
+            if (title == null || title == "") {
+                alert("反馈主题不能为空");
+                return false;
+            }
+            else if (content == null || content == "") {
+                alert("反馈内容不能为空");
+                return false;
+            }
+            else if (name == null || name == "") {
+                alert("姓名不能为空");
+                return false;
+            }
+            else if (mail == null || mail == "") {
+                alert("邮箱不能为空");
+                return false;
+            }
+            else {
+                alert("感谢您的宝贵的反馈，我们会加以改正！");
+                return true;
+            }
+            //else if(x.length)
+        }
+    </script>
+</div>
+

@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "About";
+}
+<div class="my-index-header">
+    <div class="my-index-hc one">
+        <div class="my-index1-l">
+            <div class="my-index1-logo">
+                <img class="my-index1-img" src="https://bpic.588ku.com/element_origin_min_pic/19/07/30/5cb9ddf12cc412672a09242091d1befd.jpg" />
+                <div class="my-index1-sign">
+                    <div class="t">
+                        XXX大学图书馆
+                    </div>
+                    <div class="b">
+                        XXX university library
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-index1-r">
+            @if (Session["user_id"] != null)
+            {
+                <a href="PersonalPage/Index" style="display: inline-block; color: black;">您好，@Session["user_name"]</a>
+            }
+            else if (Session["admin_id"] != null)
+            {
+                <a href="AdministratorPage/Index" style="display: inline-block; color: black;">您好，@Session["admin_name"]</a>
+            }
+            else
+            {
+                @Html.ActionLink("登录", "UserSignIn", "Sign", "#", new { @class = "my-index1-button" })
+            }
+            @Html.ActionLink("反馈", "feed_stu", "feedback", "#", new { @class = "my-index1-button" })
+        </div>
+    </div>
+</div>
+<div class="my-index-header" style="border:1px solid blue;"></div>
+<div class="my-index-header" id="my-index2">
+    <div class="my-index-hc two">
+        @Html.ActionLink("首页", "Index", "Home", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("图书馆介绍", "About", "Home", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @*@Html.ActionLink("座位服务", "Index", "SelSeat", new { @class = "my-index21" })*@
+        @Html.ActionLink("座位服务", "Index", "SelSeat", "#", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("图书服务", "Search", "Search", "#", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("图书馆公告", "info_main", "Home", new { @class = "my-index21" })
+    </div>
+</div>
+@*图书馆概述*@
+<div class="my-intro-container">
+    <div class="my-intro-h1">
+        <h1>
+            图书馆介绍
+        </h1>
+    </div>
+    <div class="my-intro-video">
+        <img class="my-about-img" src="https://ts1.cn.mm.bing.net/th/id/R-C.256f23e767aea769c542d4898229842d?rik=3HJ5l9Z65%2bevbA&riu=http%3a%2f%2fimg95.699pic.com%2fphoto%2f50112%2f6452.jpg_wh860.jpg&ehk=L6kgCzJ42VY63UPyo%2fwgMa2XC4RcprAn4KuGzZlQaWE%3d&risl=&pid=ImgRaw&r=0" />
+    </div>
+    <div class="my-intro-text">
+        <p style="text-indent: 2em">
+            同济大学创建于1907年，随后相继设立藏书楼、阅览室、图书室等。1934年正式建立同济大学图书馆。经过多次的搬迁与重建，至1990年建成现在的四平路校区图书馆（扩建后面积22225平方米）。1996年上海城市建设学院与上海建筑材料工业学院并入同济大学，2000年与上海铁道大学合并，设沪西校区图书馆（面积7188平方米），2006年嘉定校区图书馆建成（面积34620平方米），2016年德文图书馆成立（面积2853平方米），同济大学博物馆划归至图书馆管理（4430平方米）。2018年建立嘉定远程书库。现在的图书馆由四平路校区图书馆、嘉定校区图书馆、沪西校区图书馆、沪北校区图书馆、德文图书馆、同济大学博物馆组成，总面积75323平方米，各校区间使用统一的集成管理系统并实行通借通还，2004年实行一门式管理，2018年实现智能化自助借还书服务。
+        </p>
+        <p style="text-indent: 2em">
+            同济大学图书馆拥有丰富的馆藏资源，截至2021年底，馆藏纸本图书累积近460万册，电子图书及学位论文约2006.26万册，纸质中外文现刊600多种，中文电子期刊约82.11万册，外文电子期刊约115.13万册。除此之外，图书馆还订购了各种知名的大型综合性数据库、各类权威的专业学会出版物全文数据库。同济大学图书馆坚持“读者第一，服务至上”办馆宗旨，开展文献流通阅览、电子阅览、国内外馆际互借、参考咨询、信息素养教研、科技查新、学科服务、情报分析与研究、知识产权信息服务等，并开展多元文化活动，全方位服务全校师生，为教学和科研服务，同时为兄弟院校和社会提供文献信息服务。
+        </p>
+        <p style="text-indent: 2em">
+            同济大学图书馆是国际图书馆协会联合会（IFLA）的团体会员、中国高等教育文献保障系统（CALIS）成员馆、上海地区文献资源共享协作网成员馆，上海外文图书联合目录平台首批成员馆，是教育部批准的首批“科技项目咨询与成果查新中心工作站”。1993年被上海市教委评为A级图书馆。2004年同济大学图书馆加入上海市中心图书馆。2018年成立同济大学知识产权信息服务中心，成为首批国家高校知识产权信息服务中心。
+        </p>
+        <p style="text-indent: 2em">
+            同济大学图书馆设有机构：资源建设与管理部、读者服务部（四平路校区）、读者服务部（嘉定校区）、医学图书馆、工科学科服务部、理科学科服务部、文科学科服务部、咨询与情报服务部、闻学堂、文榷堂、德文图书馆、同济大学博物馆、系统管理部、办公室。
+        </p>
+    </div>
+</div>
+

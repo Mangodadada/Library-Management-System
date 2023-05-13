@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+@{
+    ViewBag.Title = "注册";
+}
+
+@*注册*@
+<div class="my-signin-row" id="lyr-index2">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div style="        margin: 0px auto;
+        width: 320px;
+        height: 500px;
+        background: #696969;
+        top: 500px;">
+        <div class="my-signin-side">
+            <div style="
+                color: #FFFFFF;">
+                <br />
+                <br />
+                <br />
+                <br />
+                <h3>&nbsp&nbsp图书馆系统身份认证</h3>
+                <br />
+                <br />
+                
+                <form style="padding-left:15px" class="lyr-search" action="Register"method="post">
+                    <input type="text" placeholder="学号或工号..." name="id">
+                    <br />
+                    <br />
+                    <input type="password" placeholder="密码..." name="pw">
+                    <br />
+                    <br />
+                    <input type="password" placeholder="重复密码..." name="pw1">
+                    <br />
+                    <br />
+                    <input type="text" placeholder="手机号码..." name="phonenumber">
+                    <br />
+                    <br />
+                    <input type="text" placeholder="邮箱..." name="email">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" class="lyr-signin-button" value="注册" /><br />
+                    <br />
+
+                </form>
+                <div style="padding-left:230px">
+                    @Html.ActionLink("已有账号", "UserSignIn", new { @class = "my-index2" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
+
+
+
+<h2>Register</h2>
+

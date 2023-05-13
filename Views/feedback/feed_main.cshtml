@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "feed_main";
+}
+@using library_admin.Models
+@using library_admin.common
+<div class="my-intro-container" style="margin-bottom:15px;">
+    <div class="my-intro-h1">
+        <h1>
+            用户反馈
+        </h1>
+    </div>
+    <div style="border:1px solid blue;"></div>
+    <div>
+        <ul class="my-main-text" style="height:700px;">
+            @if (ViewBag.feed != null)
+            {
+                foreach (feed item in (List<feed>)ViewBag.feed)
+                {
+                    <li>
+                        <div class="my-index4-notice">
+                            <div class="my-index4-date">
+                                @item.Year/@item.Mouth/@item.Day
+                            </div>
+                            <div class="my-index4-line"></div>
+                            <div class="my-feed-gg">
+                                反馈
+                            </div>
+                            <div class="my-index4-title">
+                                @item.TITLE
+                            </div>
+                            <div class="my-index4-look">
+                                @*@Html.ActionLink("查看详情", "info_stu", "Home", "#",new { id = 2 })*@
+                                <a href="/feedback/feed_admin?id=@item.ID">查看详情</a>
+                            </div>
+                            @*<script type="text/javascript">
+                                $(function () {
+                                    $(".my-index4-look").click(function () {
+                                        $.ajax({
+                                            url: "/Home/info_stu",
+                                            type: "POST",
+                                            data: {id:@item.ID}
+                                        });
+                                    })
+                                });
+                                </script>*@
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <div>暂无数据</div>
+            }
+        </ul>
+        <div class="my-main-turn">
+            <div class="my-main-turn1">
+                共
+                @ViewBag.amount
+                条反馈,
+                @ViewBag.pagecount
+                页
+            </div>
+            <div class="my-main-turn2">
+                @MvcHtmlString.Create(pagebar.getpagebar((int)ViewBag.pageindex, (int)ViewBag.pagecount))
+            </div>
+        </div>
+
+    </div>
+
+</div>

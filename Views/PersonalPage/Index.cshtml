@@ -1,0 +1,383 @@
+﻿@{
+    ViewBag.Title = "PersonalPage";
+}
+<head>
+    <meta charset="utf-8">
+    <title>图书馆个人主页</title>
+    <style>
+        @*
+        ul {
+            list-style-type: none;
+            margin: 10px;
+            padding: 0;
+            width: 12%;
+            background-color: #f1f1f1;
+            border-style: solid;
+            border-width: 1px;
+            position: fixed;
+            height: 400px;
+            overflow: auto;
+        }
+
+
+        li a {
+            display: block;
+            color: #000;
+            padding: 12px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            border-bottom-style: dotted;
+            border-bottom-width: 2px;
+        }
+
+            li a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            li a:hover:not(.active) {
+                background-color: #555;
+                color: white;
+            }*@
+
+        .dropbtn {
+            padding: 16px;
+            border: none;
+            cursor: pointer;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .tip-info{
+            margin-left:0px;
+            display:inline-block;
+        }
+
+        .tip {
+            padding: 16px;
+            border: none;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .tip-cotent {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            width:200px;
+            height:120px;
+        }
+
+        .tip-info:hover .tip-cotent {
+            display: block;
+        }
+
+        .dropdown {
+            position: fixed;
+            left:70px;
+            top:170px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            border-radius:10%;
+            width:300px;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 16px 18px;
+                text-decoration: none;
+                display: block;
+                font-size:17px;
+                margin:10px;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+
+    <script>
+        function exit_user() {
+            @Session["user_id"] = null;
+            window.alert("clicked");
+        }
+    </script>
+</head>
+
+@*页头部分*@
+<body>
+<div class="my-index-header">
+    <div class="my-index-hc one">
+        <div class="my-index1-l">
+            <div class="my-index1-logo">
+                <img class="my-index1-img" src="https://bpic.588ku.com/element_origin_min_pic/19/07/30/5cb9ddf12cc412672a09242091d1befd.jpg" />
+                <div class="my-index1-sign">
+                    <div class="t">
+                        个人主页
+                    </div>
+                    <div class="b">
+                        Personal page
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-index1-r">
+            @if (Session["user_id"] != null)
+            {
+                <div style="display: inline-block;font-size: 18px;">
+                    您好，@Session["user_id"]
+                </div>
+            }
+            else
+            {
+                @Html.ActionLink("登录", "UserSignIn", "Sign", "#", new { @class = "my-index1-button" })
+            }
+            @Html.ActionLink("反馈", "feed_stu", "feedback", "#", new { @class = "my-index1-button" })
+        </div>
+    </div>
+</div>
+
+@*主体部分*@
+
+<div class="dropdown">
+    <div><img class="dropbtn" src="~/Content/menu.png" /></div>
+    <div class="dropdown-content">
+        @Html.ActionLink("图书馆主页", "Index", "Home", "#", new { @class = "my-menu-content" })
+        @Html.ActionLink("座位预约", "Index", "SelSeat", "#", new { @class = "my-menu-content" })
+        @Html.ActionLink("我的借阅图书", "Borrow", "Borrow", "#", new { @class = "my-menu-content" })
+        <a href="/PersonalPage/Classbook?id=collect">我的收藏图书</a>
+        <a href="/PersonalPage/Classbook?id=pre">我的预约图书</a>
+        <a href="/Home/Index?id=exit" onclick="exit_user()">退出登录</a>
+    </div>
+</div>
+
+@*
+    <ul>
+                <li>
+                    <p style="color: white;
+            padding: 6px 8px;
+            width:80px;
+            margin: 10px;
+            border: 2px solid #4d83b2;
+            border-radius: 15px;
+            font-size: 20px;
+            background-color: cornflowerblue;">menu</p>
+                </li>
+                <li><a href="#">图书馆主页</a></li>
+                <li><a href="#">座位预约</a></li>
+                <li><a href="#">图书预约</a></li>
+                <li><a href="#">反馈</a></li>
+                <li><a href="#">退出登录</a></li>
+            </ul>
+*@
+
+<div style="background-color:ghostwhite">
+    <div style="width: 100%; height: 690px">
+        <div class="my-info-block">
+            <div class="my-info-1" style="border:none;">
+                <img src="~/Content/pic.png" width="120" height="120" style="float:left;border:thin;border-radius:50%;margin-top:30px;">
+                <div style=" width: 195px; height: 200px; float:left; margin:10px">
+                    <div style=" font-size: 20px; font-weight: bold;margin:15px;">@ViewBag.name</div>
+                    <div>
+                        <div style="display:inline-block;font-size: 15px;color:darkgray;margin:15px;">id: </div> <div style="display:inline-block;font-size: 15px;font-weight:bold;">@ViewBag.ID</div>
+                    </div>
+                    <div>
+                        <span style="display:inline;font-size:15px;color:darkgray;margin:15px;">我的信用分:</span>
+                        <span style="display:inline;font-size:15px;color:black;margin:1px;">@ViewBag.Credit</span>
+                    </div>
+                    <div>
+                        <span style="display:inline-block;font-size:15px;color:darkgray;margin:15px;">信用等级:</span>
+                        @if (ViewBag.LimitType == "正常")
+                        {
+                            <span style="display:inline-block;font-size:15px;color:lightgreen;">@ViewBag.LimitType</span>
+                        }
+                        else if (ViewBag.LimitType == "一般失信")
+                        {
+                            <span style="display:inline-block;font-size:15px;color:orange;">@ViewBag.LimitType</span>
+                        }
+                        else if (ViewBag.LimitType == "严重失信")
+                        {
+                            <span style="display:inline-block;font-size:15px;color:red;">@ViewBag.LimitType</span>
+                        }
+                    <div class="tip-info">
+                        <div><img class="tip" src="~/Content/tip.png" /></div>
+                        <div class="tip-cotent">
+                            <div style="margin:7px">信用等级 -- @ViewBag.LimitType :</div>
+                            <div style="margin:7px">可预约书籍数：@ViewBag.RebookNum</div>
+                            <div style="margin:7px">可借阅书籍数：@ViewBag.UsebookNum</div>
+                            <div style="margin:7px">可借阅书籍时间：@ViewBag.UsebookTime </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-info-2" style="border:none">
+                <div>
+                    <a href="/Borrow/Borrow" style="float:left; margin:10px"><img src="~/Content/book.png" width="100" height="100" style="border:thin;border-radius:20%;"></a>
+                    <a href="/Search/Search" style="float:left; margin:10px"><img src="~/Content/search.png" width="100" height="100" style="border:thin;border-radius:20%;"></a>
+                    <a href="/SelSeat/Index" style="float:left; margin:10px"><img src="~/Content/seat.png" width="100" height="100" style="border:thin;border-radius:20%;"></a>
+                </div>
+
+                <div>
+                    @Html.ActionLink("我的借阅", "Borrow", "Borrow", "#", new { @style = "display:inline-block ;margin:20px;font-size:18px" })
+                    @Html.ActionLink("检索服务", "Search", "Search", "#", new { @style = "display:inline-block ;margin:20px;font-size:18px" })
+                    @Html.ActionLink("座位预约", "Index", "SelSeat", "#", new { @style = "display:inline-block ;margin:20px;font-size:18px" })
+                </div>
+            </div>
+
+            <div class="my-info-3" style="border:none;border-top:1px solid darkgrey; margin-top:0">
+                <div style="height:200px;">
+                    <div class="my-info-words">场地预约</div>
+                    <div class="my-info-words">当前借阅</div>
+                    <div class="my-info-words">预约图书</div>
+                    <br />
+                    <div class="my-info-number">@ViewBag.SeatNum</div>
+                    <div class="my-info-number">@ViewBag.BorrowNum</div>
+                    <div class="my-info-number" style="margin-left:70px;">@ViewBag.PrebookNum</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="my-notice-block">
+            <div>
+                <div style="margin:20px;font-size:24px;margin-bottom:0;margin-right:0">
+                    最新动态
+                    <br />
+                    @Html.ActionLink("更多", "info_main", "Home", "#", new { @style = "font-size:16px" })
+                </div>
+
+            </div>
+            <div style="border:1px solid blue;"></div>
+            <ul>
+                @for (var i = 0; i < 8; i++)
+                {
+                    <li>
+                        <div class="my-index4-notice">
+                            <div class="my-index4-line"></div>
+                            <div class="my-index4-gg">
+                                公告
+                            </div>
+                            <div class="my-index4-title">
+                                @ViewBag.notice[i].TITLE
+                            </div>
+                            <div class="my-index4-look">
+                                <a href="/Home/info_stu?id=@ViewBag.notice[i].ID">详情</a>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+            </ul>
+           
+            <div style="border:1px solid blue;"></div>
+        </div>
+    </div>
+
+
+
+
+    <div class="my-block">
+        <div class="my-block-title">
+            <div style="font-size:26px;float:left;margin:10px">我的借阅</div>
+            @Html.ActionLink("更多", "Borrow", "Borrow", "#", new { @style = "float:right;margin:10px;font-size:16px" })
+        </div>
+        <div class="my-table-title">
+            <div class="my-table-title-content">书籍名称</div>
+            <div class="my-table-title-content">借书时间</div>
+            <div class="my-table-title-content">还书期限</div>
+            <div class="my-table-title-content">状态</div>
+        </div>
+
+        <div class="my-table">
+            <div class="my-table-content">@ViewBag.BookData[0].BOOK_ID</div>
+            <div class="my-table-content">@ViewBag.BookData[0].BORROW_DATE</div>
+            <div class="my-table-content">@ViewBag.BookData[0].RETURN_DATE</div>
+            <div class="my-table-content" id="state0">@ViewBag.BookData[0].STATE</div>
+        </div>
+
+        <div class="my-table">
+            <div class="my-table-content">@ViewBag.BookData[1].BOOK_ID</div>
+            <div class="my-table-content">@ViewBag.BookData[1].BORROW_DATE</div>
+            <div class="my-table-content">@ViewBag.BookData[1].RETURN_DATE</div>
+            <div class="my-table-content">@ViewBag.BookData[1].STATE</div>
+        </div>
+
+        <div class="my-table">
+            <div class="my-table-content">@ViewBag.BookData[2].BOOK_ID</div>
+            <div class="my-table-content">@ViewBag.BookData[2].BORROW_DATE</div>
+            <div class="my-table-content">@ViewBag.BookData[2].RETURN_DATE</div>
+            <div class="my-table-content">@ViewBag.BookData[2].STATE</div>
+        </div>
+
+    </div>
+
+  
+    
+    <div class="my-block">
+        <div class="my-block-title">
+            <div style="font-size:26px;float:left;margin:10px">图书评论收藏</div>
+            @Html.ActionLink("更多", "Classbook", "PersonalPage", "#", new { @style = "float:right;margin:10px;font-size:16px" })
+        </div>
+        <div class="my-table-title">
+            <div class="my-table-title-content">操作日期</div>
+            <div class="my-table-title-content">书籍名称</div>
+            <div class="my-table-title-content">操作类型</div>
+            <div class="my-table-title-content">内容</div>
+        </div>
+        @for (var i = 0; i < 3; i++)
+        {
+            <div class="my-table">
+                <div class="my-table-content">@ViewBag.ClassbookData[i].OP_TIME</div>
+                <div class="my-table-content">@ViewBag.ClassbookData[i].BOOK_ID</div>
+                <div class="my-table-content">@ViewBag.ClassbookData[i].OP_TYPE</div>
+                <div class="my-table-content">@ViewBag.ClassbookData[i].COTENT</div>
+            </div>
+        }
+    </div>
+     
+
+    <div class="my-block" style="margin-bottom:0">
+        <div class="my-block-title">
+            <div style="font-size:26px;float:left;margin:10px">座位预约</div>
+            @Html.ActionLink("更多", "Index", "SelSeat", "#", new { @style = "float:right;margin:10px;font-size:16px" })
+        </div>
+        <div class="my-table-title">
+            <div class="my-table-title-content">操作日期</div>
+            <div class="my-table-title-content">自习室位置</div>
+            <div class="my-table-title-content">座位位置</div>
+            <div class="my-table-title-content">操作内容</div>
+
+        </div>
+        @for (var i = 0; i < 3; i++)
+        {
+            <div class="my-table">
+                <div class="my-table-content">@ViewBag.SeatData[i].OP_TIME</div>
+                <div class="my-table-content">@ViewBag.SeatData[i].STUDYROOM_ID</div>
+                <div class="my-table-content">@ViewBag.SeatData[i].SEAT_ID</div>
+                <div class="my-table-content">@ViewBag.SeatData[i].OP_TYPE</div>
+            </div>
+        }
+           
+    </div>
+
+</div>
+
+<div style="height:80px;width:100%;background-color:ghostwhite;"></div>
+
+
+</body>

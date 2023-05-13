@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "AdministratorPage";
+}
+<head>
+    <meta charset="utf-8">
+    <title>图书馆管理员主页</title>
+    <style>
+        .dropbtn {
+            padding: 16px;
+            border: none;
+            cursor: pointer;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .dropdown {
+            position: fixed;
+            left: 70px;
+            top: 170px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            border-radius: 10%;
+            width: 300px;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 16px 18px;
+                text-decoration: none;
+                display: block;
+                font-size: 20px;
+                margin: 20px;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+
+@*页头部分*@
+<div class="my-index-header">
+    <div class="my-index-hc one">
+        <div class="my-index1-l">
+            <div class="my-index1-logo">
+                <img class="my-index1-img" src="https://bpic.588ku.com/element_origin_min_pic/19/07/30/5cb9ddf12cc412672a09242091d1befd.jpg" />
+                <div class="my-index1-sign">
+                    <div class="t">
+                        管理员主页
+                    </div>
+                    <div class="b">
+                        Administrator page
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="my-index1-r">
+            @if (Session["user_id"] != null)
+            {
+                <a href="/PersonalPage/Index" style="display: inline-block; color: black;">您好，@Session["user_name"]</a>
+            }
+            else if (Session["admin_id"] != null)
+            {
+                <a href="/AdministratorPage/Index" style="display: inline-block; color: black;">您好，@Session["admin_name"]</a>
+            }
+            else
+            {
+                @Html.ActionLink("登录", "UserSignIn", "Sign", "#", new { @class = "my-index1-button" })
+            }
+            @Html.ActionLink("查看反馈", "feed_main", "feedback", "#", new { @class = "my-index1-button" })
+
+        </div>
+    </div>
+</div>
+<div style="background-color:ghostwhite">
+    <div style="width: 100%; height: 690px">
+        <div class="my-info-block">
+            <div class="my-info-1" style="border: none;">
+                <img src="~/Content/pic.png" width="120" height="120" style="float:left;border:thin;border-radius:50%;margin-top:30px;">
+                <div style=" width: 150px; height: 200px; float:left; margin:5px">
+                    <div style=" font-size: 30px; font-weight: bold;margin:15px;">
+                        @Session["admin_name"]
+                    </div>
+                    <div>
+                        <div style="display:inline-block;font-size: 25px;color:darkgray;margin:10px;">
+                            id:
+                        </div>
+                        <div style="display:inline-block;font-size: 25px;font-weight:bold;">
+                            @Session["admin_id"]
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:inline-block;font-size:20px;color:darkgray;margin:10px;">
+                            证件状态:
+                        </div>
+                        <div style="display:inline-block;font-size:20px;color:lightgreen;">
+                            有效
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-info-3" style="border:none;border-top:1px solid darkgrey; margin-top:10px">
+                <div>
+                    <img src="~/Content/book1.png" width="50" height="50" style="border:thin;border-radius:20%;">
+                    @Html.ActionLink("书籍管理", "Index", "BookAdInfo", "#", new { @style = "display:inline-block ;margin:20px;font-size:18px" })
+                    <img src="~/Content/people1.png" width="50" height="50" style="border:thin;border-radius:20%;">
+                    @Html.ActionLink("人员管理", "Index", "Assistant", "#", new { @style = "display:inline-block ;margin:20px;font-size:18px" })
+                    <img src="~/Content/seat1.png" width="50" height="50" style="border:thin;border-radius:20%;">
+                    @Html.ActionLink("座位管理", "Index", "Seat", "#", new { @style = "display:inline-block ;margin:20px;font-size:18px" })
+                </div>
+                <br /><br /><br /><br /><br />
+                 @Html.ActionLink("图书馆主页", "Index", "Home", "#", new { @style = "display:inline-block ;margin:20px;font-size:12px" })
+            </div>
+            
+
+        </div>
+
+        <div class="my-notice-block">
+            <div>
+                <div style="margin:20px;font-size:24px;margin-bottom:0;margin-right:0">
+                    最新动态
+                    <br />
+                    @Html.ActionLink("更多", "info_main", "Home", "#", new { @style = "font-size:16px" })
+
+                </div>
+
+            </div>
+            <div style="border:1px solid blue;"></div>
+            <ul>
+                @for (var i = 0; i < 8; i++)
+                {
+                    <li>
+                        <div class="my-index4-notice">
+                            <div class="my-index4-line"></div>
+                            <div class="my-index4-gg">
+                                公告
+                            </div>
+                            <div class="my-index4-title">
+                                @ViewBag.notice[i].TITLE
+                            </div>
+                            <div class="my-index4-look">
+                                <a href="/Home/info_stu?id=@ViewBag.notice[i].ID">详情</a>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+            </ul>
+            @Html.ActionLink("发布公告", "info_admin", "Home", "#", new { @style = "font-size:16px" })
+            <div style="border:1px solid blue;"></div>
+        </div>
+    </div>
+</div>
+

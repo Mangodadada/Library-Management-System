@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "info_admin";
+}
+<div class="my-admin-div">
+    <div style="font-size:36px;text-align:center;height:80px;line-height:80px;">
+        发布公告
+    </div>
+    <div style="border:1px solid blue;"></div>
+    @using (Ajax.BeginForm("add_info", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterlogin" }))
+    {
+        <div style="background-color:white;height:1000px;">
+        <div class="my-admin-ts">
+            请输入公告标题
+        </div>
+        <input name="TITLE" type="text" class="my-amin-title" id="my-title">
+        <div class="my-admin-ts">
+            请输入公告内容
+        </div>
+        <textarea name="CONTENT" type="text" class="my-amin-content" id="my-content">
+        </textarea>
+        <input class="my-admin-button" type="submit" value="提交" />
+        <a class="my-admin-a" href="/AdministratorPage/Index">取消</a>
+        <script src="~/Scripts/jquery-1.7.1.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        <script type="text/javascript">
+            function afterlogin(data) {
+                var serverData = data.split(':');
+                if (serverData[0] == "ok") {
+                    alert("发布成功")
+                    window.location.href = "/AdministratorPage/Index";
+                }
+                else if (serverData[0] == "no") {
+                    alert(serverData[1]);
+                }
+                else {
+                    alert("系统繁忙！");
+                }
+            }
+        </script>
+        </div>
+    }
+</div>

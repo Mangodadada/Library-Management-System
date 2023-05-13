@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>*@
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">*@
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="~/Content/Site.css">
+    <link rel="stylesheet" href="~/Content/gyh.css">
+    <link rel="stylesheet" href="~/Content/zj.css">
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body background="https://ts1.cn.mm.bing.net/th/id/R-C.256f23e767aea769c542d4898229842d?rik=3HJ5l9Z65%2bevbA&riu=http%3a%2f%2fimg95.699pic.com%2fphoto%2f50112%2f6452.jpg_wh860.jpg&ehk=L6kgCzJ42VY63UPyo%2fwgMa2XC4RcprAn4KuGzZlQaWE%3d&risl=&pid=ImgRaw&r=0"
+style=" background-repeat:no-repeat;
+background-size:100% 100%;
+background-attachment: fixed;">
+    <div>
+        @RenderBody()
+        <div class="my-index-header" style="border:1px solid white;"></div>
+        <footer style="background-color: cornflowerblue">
+            <div class="my-footer-t">
+                <div class="my-footer-center">
+                    <div class="my-footer-link">
+                        <p>友情链接</p>
+                        <div>
+                            <a href="#">XXX大学</a>
+                        </div>
+                        <div>
+                            <a href="#">
+                                XX市高校图工委
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#">XX高校资源共建共享平台</a>
+                        </div>
+                        <div>
+                            <a href="#">XXX大学知识产权信息服务中心</a>
+                        </div>
+                        <div>
+                            <a href="#">高校知识产权信息服务中心联盟</a>
+                        </div>
+                        <div>
+                            <a href="#">长三角高校图书馆联盟</a>
+                        </div>
+                    </div>
+                    <div class="my-footer-office">
+                        <div class="my-footer-button">
+                            <a  href="#">图书馆官方微博</a>
+                        </div>
+                        <div class="my-footer-button">
+                            <a  href="#">图书馆官方微信</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="border:1px solid red;"></div>
+            <div class="my-footer-b">
+                © 2022.XXX大学图书馆版权所有
+            </div>
+
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

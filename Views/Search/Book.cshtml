@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Book";
+}
+
+@*HEAD*@
+<div class="my-search-header">
+    <div class="my-book-header">
+        <div class="my-book-logo">
+            <a href="/"><img class="my-index1-img" src="https://bpic.588ku.com/element_origin_min_pic/19/07/30/5cb9ddf12cc412672a09242091d1befd.jpg" /></a>                    
+               <div class="my-book-sign">
+            <div class="t">
+                    XXX大学图书馆
+                </div>    
+            </div>
+            </div>        
+    </div>
+</div>
+<div class="my-index-header" style="border:1px solid blue;"></div>
+@*书目介绍*@
+<div class="my-book-box">
+    <div class="my-book-container">
+        <div class="my-book-artical">
+            <a href="/Search/Search" class="my-backward-bn"><i class="fa fa-angle-left"></i> 返回</a>
+            <HR width=100% color=#ccc SIZE=1>
+        </div>
+        <div class="my-book-artical">
+            <div class="my-book-image">
+                <image src=@ViewBag.search_book.image width="147" height="217"></image>
+            </div>
+            <div class="my-book-detail">
+                <p><b>书名：</b>@ViewBag.search_book.book_name</p>
+                <p><b>作者：</b>@ViewBag.search_book.author</p>
+                <p><b>出版社：</b>@ViewBag.search_book.publish</p>
+                <p><b>出版时间: </b>@ViewBag.search_book.publish_date</p>
+                <p><b>ISBN：</b>@ViewBag.search_book.isbn</p>
+                <p><b>分类：</b>@ViewBag.search_book.type</p>
+                <p><b>索书号：</b>@ViewBag.search_book.call_number</p>
+                <p><b>状态：</b>@ViewBag.search_book.state</p>
+                <p><b>位置：</b>@ViewBag.search_book.floor 层 @ViewBag.search_book.bookshelf_id 书架</p>
+                <p><b>摘要：</b>@ViewBag.search_book._abstract</p>
+            </div>
+            <br />
+            @if (Session["user_id"] != null)
+            {
+                <div class="my-book-sharing">
+                    @if (@ViewBag.collect_late == "已收藏")
+                    {
+                        <a style="background-color :yellow;" class="my-book-bn" href="/Search/Book?op=2">取消收藏<i class="fa fa-heart"></i></a>
+                    }
+                    else
+                    {
+                        <a style="background-color: #3498db;" class="my-book-bn" href="/Search/Book?op=1">收藏 <i class="fa fa-heart"></i></a>
+                    }
+                    <div class="my-book-bn" id="command1">评论 <i class="fa fa-file-text-o" aria-hidden="true"></i></div>
+                    @if (@ViewBag.pre == "已预约")
+                    {
+                        <a style="background-color :yellow;" class="my-book-bn" href="/Search/Book?op=4">取消预约<i class="fa fa-tag" aria-hidden="true"></i></a>
+                    }
+                    else
+                    {
+                        <a style="background-color: #3498db;" class="my-book-bn" href="/Search/pre?isbn=@ViewBag.search_book.isbn">预约 <i class="fa fa-tag" aria-hidden="true"></i></a>
+                    }
+                </div>
+            }
+            <div class="command-content">
+                <form name="command-form" method="post" action="/Search/Book" style="background-color:white;" onsubmit="return validateForm()">
+                    <div class="my-admin-ts">
+                        您的评价
+                    </div>
+                    <textarea name="command_content" type="text" id="command">
+                </textarea>
+                    <input class="my-admin-button" type="submit" value="提交" style="margin-top:15px;" id="yes" />
+                    <a class="my-admin-a" id="no" style="margin-top:15px;">取消</a>
+                </form>
+            </div>
+            <script src="~/Scripts/jquery-1.7.1.js"></script>
+            <script src="~/Scripts/jquery.validate.js"></script>
+            <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript">
+                $("#command1").click(function () {
+                    $(".command-content").css("opacity", "1");
+                })
+                function validateForm() {
+                    var x = document.getElementById('command').value;
+                    if (x.length == 0) {
+                        alert("评论内容不能为空");
+                        return false;
+                    }
+                    alert("评论成功");
+                    $(".command-content").css("opacity", "0");
+                }
+                $("#no").click(function () {
+                    $(".command-content").css("opacity", "0");
+                })
+            </script>
+        </div>
+    </div>
+    @*<HR align=center width=100% color=#ccc SIZE=1>*@
+    <div class="my-book-oth">
+        <h4><b>评论</b>(@ViewBag.search_book.comment_num)</h4>
+        @for (int i = 0; i < ViewBag.search_book.comment_num; i++)
+        {
+        <HR width=100% color=#ccc SIZE=1>
+        <p>@ViewBag.search_book.comments[i]</p>
+        }
+    </div>
+</div>
+
+

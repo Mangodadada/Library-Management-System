@@ -1,0 +1,26 @@
+﻿
+<table class="grid-search-display">
+    <thead id="result-thead">
+        <tr>
+            <td>姓名</td>
+            <td>ID</td>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach(var item in ViewBag.DataList)
+         {
+            <tr>
+                <td>@item.name</td>
+                <td>@item.id</td>
+                <td><a id= "@item.id" onclick="forDetail(this.id)"  >查看详情</a></td>
+            </tr>
+         }
+
+        
+
+    </tbody>
+</table>
+
+
+

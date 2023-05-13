@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "info_main";
+}
+@using library_admin.Models
+@using library_admin.common
+<div class="my-index-header">
+    <div class="my-index-hc one">
+        <div class="my-index1-l">
+            <div class="my-index1-logo">
+                <img class="my-index1-img" src="https://bpic.588ku.com/element_origin_min_pic/19/07/30/5cb9ddf12cc412672a09242091d1befd.jpg" />
+                <div class="my-index1-sign">
+                    <div class="t">
+                        XXX大学图书馆
+                    </div>
+                    <div class="b">
+                        XXX university library
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-index1-r">
+            @if (Session["user_id"] != null)
+            {
+                <a href="PersonalPage/Index" style="display: inline-block;color:black;">您好，@Session["user_name"]</a>
+            }
+            else if (Session["admin_id"] != null)
+            {
+                <a href="AdministratorPage/Index" style="display: inline-block; color: black;">您好，@Session["admin_name"]</a>
+            }
+            else
+            {
+                @Html.ActionLink("登录", "UserSignIn", "Sign", "#", new { @class = "my-index1-button" })
+            }
+            @Html.ActionLink("反馈", "feed_stu", "feedback", "#", new { @class = "my-index1-button" })
+        </div>
+    </div>
+</div>
+<div class="my-index-header" style="border:1px solid blue;"></div>
+<div class="my-index-header" id="my-index2">
+    <div class="my-index-hc two">
+        @Html.ActionLink("首页", "Index", "Home", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("图书馆介绍", "About", "Home", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @*@Html.ActionLink("座位服务", "Index", "SelSeat", new { @class = "my-index21" })*@
+        @Html.ActionLink("座位服务", "Index", "SelSeat", "#", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("图书服务", "Search", "Search", "#", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("图书馆公告", "info_main", "Home", new { @class = "my-index21" })
+    </div>
+</div>
+<div class="my-intro-container" style="margin-bottom:15px;">
+    <div class="my-intro-h1">
+        <h1>
+            图书馆公告
+        </h1>
+    </div>
+    <div style="border:1px solid blue;"></div>
+    <div>
+        <ul class="my-main-text" style="height:700px;">
+            @if (ViewBag.notice != null)
+            {
+                foreach (index_notice item in (List<index_notice>)ViewBag.notice)
+                {
+                    <li>
+                        <div class="my-index4-notice">
+                            <div class="my-index4-date">
+                                @item.Year/@item.Mouth/@item.Day
+                            </div>
+                            <div class="my-index4-line"></div>
+                            <div class="my-index4-gg">
+                                公告
+                            </div>
+                            <div class="my-index4-title">
+                                @item.TITLE
+                            </div>
+                            <div class="my-index4-look">
+                                @*@Html.ActionLink("查看详情", "info_stu", "Home", "#",new { id = 2 })*@
+                                <a href="/Home/info_stu?id=@item.ID">查看详情</a>
+                            </div>
+                            @*<script type="text/javascript">
+                            $(function () {
+                                $(".my-index4-look").click(function () {
+                                    $.ajax({
+                                        url: "/Home/info_stu",
+                                        type: "POST",
+                                        data: {id:@item.ID}
+                                    });
+                                })
+                            });
+                            </script>*@
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <div>暂无数据</div>
+            }
+        </ul>
+        <div class="my-main-turn">
+            <div class="my-main-turn1">
+                共
+                @ViewBag.amount
+                条信息,
+                @ViewBag.pagecount
+                页
+            </div>
+            <div class="my-main-turn2">
+                @MvcHtmlString.Create(pagebar.getpagebar((int)ViewBag.pageindex, (int)ViewBag.pagecount))
+            </div>
+        </div>
+
+    </div>
+    
+</div>

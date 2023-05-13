@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@*1*@
+<div class="my-index-header">
+    <div class="my-index-hc one">
+        <div class="my-index1-l">
+            <div class="my-index1-logo">
+                <img class="my-index1-img" src="https://bpic.588ku.com/element_origin_min_pic/19/07/30/5cb9ddf12cc412672a09242091d1befd.jpg" />
+                <div class="my-index1-sign">
+                    <div class="t">
+                        XXX大学图书馆
+                    </div>
+                    <div class="b">
+                        XXX university library
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-index1-r">
+            @if (Session["user_id"] != null)
+            {
+            <a href="/PersonalPage/Index" style="display: inline-block; color: black;">您好，@Session["user_name"]</a>
+            }
+            else if(Session["admin_id"]!=null)
+            {
+            <a href="/AdministratorPage/Index" style="display: inline-block; color: black;">您好，@Session["admin_name"]</a>
+            }
+            else
+            {
+            @Html.ActionLink("登录", "UserSignIn", "Sign", "#", new { @class = "my-index1-button" })
+            }
+            @Html.ActionLink("反馈", "feed_stu", "feedback", "#", new { @class = "my-index1-button" })
+        </div>
+    </div>
+</div>
+<div class="my-index-header" style="border:1px solid blue;"></div>
+            @*2*@
+<div class="my-index-header" id="my-index2">
+    <div class="my-index-hc two">
+        @Html.ActionLink("首页", "Index", "Home", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("图书馆介绍", "About", "Home", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("座位服务","Index","SelSeat","#",new{@class="my-index21"})
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("图书服务", "Search", "Search","#", new { @class = "my-index21" })
+        <div style="border:1px solid black;"></div>
+        @Html.ActionLink("图书馆公告", "info_main", "Home", new { @class = "my-index21" })
+    </div>
+</div>
+<div id="my-index3">
+    <div class="my-index3-title">
+        <div class="my-index3-mode">
+            图书搜索
+        </div>
+    </div>
+    <div class="my-index3-seek">
+        @using (Html.BeginForm("Search", "Search", FormMethod.Post, new { @class = "my-index3-seekc" }))
+        {
+            @Html.TextBox("search", "", new { @class = "my-index3-kuang" });
+            <input class="my-index3-button" type="submit" value="搜索" />
+        }
+    </div>
+    <div class="my-index3-info">
+        <div class="my-index31">
+            图书馆容量:@ViewBag.Tests.CAPACITY
+        </div>
+        <div class="my-index31">
+            书籍总数：@ViewBag.book_amount
+        </div>
+    </div>
+</div>
+            @*公告展示-轮播图+列表*@
+<div id="my-index4">
+    <div class="my-index4-half">
+        <div class="my-index4l">
+            <div class="my-index4lt">
+                最<br />
+                新<br />
+                消<br />
+                息
+            </div>
+            <div class="my-index4lb">
+                @Html.ActionLink("查看更多", "info_main", "Home")
+            </div>
+        </div>
+        <div style="border:1px solid blue;"></div>
+        <div class="my-index4r">
+            <ul>
+                @for(var i=0;i<9;i++)
+                {
+                <li>
+                    <div class="my-index4-notice">
+                        <div class="my-index4-date">
+                            @ViewBag.notice[i].Mouth/@ViewBag.notice[i].Day
+                        </div>
+                        <div class="my-index4-line"></div>
+                        <div class="my-index4-gg">
+                            公告
+                        </div>
+                        <div class="my-index4-title">
+                            @ViewBag.notice[i].TITLE
+                        </div>
+                        <div class="my-index4-look">
+                           <a href="/Home/info_stu?id=@ViewBag.notice[i].ID">查看详情</a>
+                        </div>
+                    </div>
+                </li>
+                }
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+            @*最热图书展示-轮播图*@
+            <div id="my-index5">
+                <div class="my-index5-header">
+                    <div class="my-index5-re">
+                        阅读推荐
+                    </div>
+                    <div class="my-index5-hot">
+                        推荐图书
+                    </div>
+                    <div class="my-index5-new">
+
+                    </div>
+                </div>
+                <div class="my-index5-swipper">
+                    @for (var u=0;u<ViewBag.amount;u++)
+        {
+                    <div class="my-index5-item">
+                        <img src=@ViewBag.recommend[u].img class="my-index5-img" />
+                        <div class="my-index5-book">
+                            <div class="my-index5-intro">
+                                <div style="margin-bottom:5px;">
+                                    书名：@ViewBag.recommend[u].name
+                                </div>
+                                <div style="margin-bottom:5px;">
+                                    作者：@ViewBag.recommend[u].author
+                                </div>
+                                <div style="font-size:16px;">
+                                    推荐语：@ViewBag.recommend[u].recom
+                                </div>
+                                <div>
+
+                                </div>
+                            </div>
+                            <div class="my-index5-look">
+                                <a href="/Search/Book?isbn=@ViewBag.recommend[u].ISBN" style="color: white;">查看详情</a>
+                            </div>
+                        </div>
+                    </div>
+        }
+                    <div class="my-index5-arrowl">&lt;</div>
+                    <div class="my-index5-arrowr">&gt;</div>
+                    <div class="my-index5-point">
+                        <ul>
+                            <li class="my-index5-c"></li>
+                            <li class="my-index5-c"></li>
+                            <li class="my-index5-c"></li>
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+                <script type="text/javascript">
+                    $(function () {
+                        var index = 0;
+                        var f;
+                        dingshiqi();
+                        function dingshiqi() {
+                            f = setInterval(function () {
+                                if (index == $(".my-index5-item").length - 1) {
+                                    index = 0;
+                                    $(".my-index5-item").css("opacity", "0");
+                                    $(".my-index5-item").eq(index).css("opacity", "1");
+                                    $(".my-index5-c").css("background", "#ccc");
+                                    $(".my-index5-c").eq(index).css("background", "#fff");
+                                } else {
+                                    index++;
+                                    $(".my-index5-item").css("opacity", "0");
+                                    $(".my-index5-item").eq(index).css("opacity", "1");
+                                    $(".my-index5-c").css("background", "#ccc");
+                                    $(".my-index5-c").eq(index).css("background", "#fff");
+                                }
+                            }, 4000)
+                        }
+                        $(".my-index5-arrowl").click(function () {
+                            clearInterval(f);
+                            if (index == 0) {
+                                index = $(".my-index5-item").length - 1;
+                                $(".my-index5-item").css("opacity", "0");
+                                $(".my-index5-item").eq(index).css("opacity", "1");
+                                $(".my-index5-c").css("background", "#ccc");
+                                $(".my-index5-c").eq(index).css("background", "#fff");
+                                dingshiqi();
+                            }
+                            else {
+                                index--;
+                                $(".my-index5-item").css("opacity", "0");
+                                $(".my-index5-item").eq(index).css("opacity", "1");
+                                $(".my-index5-c").css("background", "#ccc");
+                                $(".my-index5-c").eq(index).css("background", "#fff");
+                                dingshiqi();
+                            }
+                        })
+                        $(".my-index5-arrowr").click(function () {
+                            clearInterval(f);
+                            if (index == $(".my-index5-item").length - 1) {
+                                index = 0;
+                                $(".my-index5-item").css("opacity", "0");
+                                $(".my-index5-item").eq(index).css("opacity", "1");
+                                $(".my-index5-c").css("background", "#ccc");
+                                $(".my-index5-c").eq(index).css("background", "#fff");
+                                dingshiqi();
+                            }
+                            else {
+                                index++;
+                                $(".my-index5-item").css("opacity", "0");
+                                $(".my-index5-item").eq(index).css("opacity", "1");
+                                $(".my-index5-c").css("background", "#ccc");
+                                $(".my-index5-c").eq(index).css("background", "#fff");
+                                dingshiqi();
+                            }
+                        })
+                        $(".my-index5-c").click(function () {
+                            clearInterval(f);
+                            var indexx = $(this).index();
+                            index = indexx;
+                            $(".my-index5-item").css("opacity", "0");
+                            $(".my-index5-item").eq(index).css("opacity", "1");
+                            $(".my-index5-c").css("background", "#ccc");
+                            $(".my-index5-c").eq(index).css("background", "#fff");
+                            dingshiqi();
+                        })
+                    })
+                </script>
+            </div>
+            <div id="my-index6">
+                <div class="my-index6-button">
+                    联系我们
+                </div>
+                <div class="my-index6-button">
+                    电话：XXXXXXXXXXX
+                </div>
+                <div class="my-index6-button">
+                    邮箱：XXXX@XXXXX
+                </div>
+            </div>

@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "add_book";
+}
+<div class="my-feed-div" style="height:240px;margin:300px auto;">
+    <div style="height:400px;width:300px;margin:auto auto;">
+        @using (Ajax.BeginForm("add_action", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterlogin" }, new { id = "book-form" }))
+        {
+            <div style="display:flex;">
+                <div style="width:100px;text-align:center;height:30px;line-height:30px;color:black;margin-top:15px;">
+                    ISBN：
+                </div>
+                <input type="text" name="isbn" style="width: 200px; height: 30px; margin-top: 15px;" />
+            </div>
+            <div style="display:flex;">
+                <div style="width: 100px; text-align: center; height: 30px; line-height: 30px; color: black;">
+                    书架：
+                </div>
+                <input type="number" name="bookshelf" style="width:200px;height:30px;float:right;" />
+            </div>
+            <div style="margin:5px 40px 25px;">
+                101-150
+                201-250
+                301-350<br />
+                401-450
+                501-525
+                601-625<br />
+            </div>
+            <input type="submit" class="lyr-signin-button" value="提交" style="margin-left:30px;"/>
+            <input type="button" id="no" value="取消" class="lyr-signin-button" style="margin-left:100px;" />
+        }
+        <script src="~/Scripts/jquery-1.7.1.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        <script type="text/javascript">
+            $("#no").click(function () {
+                window.location.href = "/BookAdInfo/Index";
+            })
+            function afterlogin(data) {
+                var serverData = data.split(':');
+                if (serverData[0] == "ok") {
+                    alert("添加成功")
+                    window.location.href = "/BookAdInfo/Index";
+                }
+                else if (serverData[0] == "no") {
+                    alert(serverData[1]);
+                    //if (serverData[1] == "没有相关ISBN的记录，请先补充相关ISBN记录")
+                    //    window.location.href = "/BookAdInfo/add_isbn";
+                }
+                else {
+                    alert("系统繁忙！");
+                }
+            }
+        </script>
+    </div>  
+</div>
+

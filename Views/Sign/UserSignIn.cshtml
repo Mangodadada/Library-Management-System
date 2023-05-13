@@ -1,0 +1,168 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "用户登录";
+}
+@using library_admin.Controllers
+@*统一身份认证登录*@
+<div style="background-color:grey;width:320px;height:300px;margin:200px auto;">
+    <div style="height:90px;line-height:90px;text-align:center;font-size:24px;color:white;">
+        图书馆系统身份认证
+    </div>
+    <div style="display:flex;">
+        <div style="width:160px;font-size:20px;text-align:center;height:70px;line-height:70px;color:blue;">
+            普通用户
+        </div>
+        <div style="width:160px;font-size:20px;text-align:center;height:70px;line-height:70px;color:white;">
+            <a href="/Sign/AdminSignIn" style="color:white;">管理员</a>
+        </div>
+    </div>
+    @using (Ajax.BeginForm("userlogin", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterlogin" }, new { id = "user-form" }))
+    {
+        <div style="display:flex;">
+            <div style="width:100px;text-align:center;height:30px;line-height:30px;color:white;">
+                账号：
+            </div>
+            <input type="text" placeholder="账号..." name="id" style="width:200px;height:30px;" />
+        </div>
+        <div style="display:flex;">
+            <div style="width: 100px; text-align: center; height: 30px; line-height: 30px; color: white;">
+                密码：
+            </div>
+            <input type="password" placeholder="密码..." name="pw" style="width:200px;height:30px;" />
+        </div>
+        <input type="submit" class="lyr-signin-button" value="登录" style="margin:20px 120px;" /><br />
+        <span id="errorMsg"></span>
+    }
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        function validateForm() {
+            var x = document.forms["user-form"]["id"].value;
+            var y = document.forms["user-form"]["pw"].value;
+            if (x == null || x == "") {
+                alert("账号不能为空");
+                return false;
+            }
+            else if (y == null || y == "") {
+                alert("密码不能为空");
+                return false;
+            }
+        }
+        function afterlogin(data) {
+            var serverData = data.split(':');
+            if (serverData[0] == "ok") {
+                alert("登录成功")
+                window.location.href = "/PersonalPage/Index";
+            }
+            else if (serverData[0] == "no") {
+                alert(serverData[1]);
+                $("#errorMsg").text(serverData[1]);
+            }
+            else {
+                alert("系统繁忙！");
+                $("#errorMsg").text("系统繁忙");
+            }
+        }
+    </script>
+</div>
+@*<div class="my-signin-row" id="lyr-index2">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div style="margin: 0px auto;
+        width: 320px;
+        height: 500px;
+        background: #696969;
+        top: 500px;">
+        <div class="my-signin-side">
+            <div style="
+                color: #FFFFFF;">
+                <br />
+                <br />
+                <br />
+                <br />
+                <h3 style="text-align:center;">图书馆系统身份认证</h3>
+                <br />
+                <br />
+                <a>&nbsp&nbsp</a>
+                <a style="width: 160px; text-align: center; font-size: 24px; color: blue;" runat="server">普通用户</a>
+                <a style="width: 160px; text-align: center; font-size: 24px; color: white;" runat="server" href="/Sign/AdminSignIn">管理员</a>
+                <br />
+                <br />
+                @using (Ajax.BeginForm("userlogin", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterlogin" }, new { id = "user-form" }))
+                {
+                    <div>
+                        账号：
+                    </div>
+                    <input type="text" placeholder="账号..." name="id" style="float:left;" /><br />
+                    <div>
+                        密码：
+                    </div>
+                    <input type="password" placeholder="密码..." name="pw" style="float:left;"/><br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                    <input type="submit" class="lyr-signin-button" value="登录" style="margin:0 auto;" /><br />
+                    <span id="errorMsg"></span>
+                }
+                <script src="~/Scripts/jquery-1.7.1.js"></script>
+                <script src="~/Scripts/jquery.validate.js"></script>
+                <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+                <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+                <script type="text/javascript">
+                    function validateForm() {
+                        var x = document.forms["user-form"]["id"].value;
+                        var y = document.forms["user-form"]["pw"].value;
+                        if (x == null || x == "") {
+                            alert("账号不能为空");
+                            return false;
+                        }
+                        else if (y == null || y == "") {
+                            alert("密码不能为空");
+                            return false;
+                        }
+                        //else {
+                        //    alert("登录成功");
+                        //    Response.redirect("/PersonalPage/Index")
+                        //    return true;
+                        //}
+                        //else if(x.length)
+                    }
+                    function afterlogin(data) {
+                        var serverData = data.split(':');
+                        if (serverData[0] == "ok") {
+                            alert("登录成功")
+                            window.location.href = "/PersonalPage/Index";
+                        }
+                        else if (serverData[0] == "no") {
+                            $("#errorMsg").text(serverData[1]);
+                        }
+                        else {
+                            $("#errorMsg").text("系统繁忙");
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+</div>*@
+
+
+
+

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "feed_admin";
+}
+<div class="my-intro-container">
+    <div class="my-intro-h1">
+        <h1>
+            主题：@ViewBag.feed.TITLE
+        </h1>
+    </div>
+    <div class="my-main-turn">
+        反馈时间：@ViewBag.feed.Year/@ViewBag.feed.Mouth/@ViewBag.feed.Day
+    </div>
+    <div style="border:1px solid blue;"></div>
+    <div class="my-intro-text">
+        <p>
+            反馈内容：@ViewBag.feed.CONTENT
+        </p>
+        <div>
+            反馈人姓名：@ViewBag.feed.NAME<br />
+            反馈人电话：@ViewBag.feed.TEL<br />
+            反馈人邮箱：@ViewBag.feed.MAIL<br />
+        </div>
+        @*<p style="text-indent: 2em">
+                @ViewBag.order
+            </p>*@
+    </div>
+</div>
+

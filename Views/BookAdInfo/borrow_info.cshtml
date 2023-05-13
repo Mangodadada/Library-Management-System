@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "borrow_info";
+}
+<div style="background-color:white;">
+    <div style="display: flex;">
+        <div style="width:160px;height:80px;">
+            <a href="/BookAdInfo/Index" style="border-radius: 15px;line-height:40px;top:20px;left:40px;position:relative;" class="lyr-signin-button">书籍管理</a>
+        </div>
+        <div style="font-size:24px;color:cornflowerblue;margin:auto 40%;">相关用户</div>
+    </div>
+    <div style="border:1px solid blue;"></div>
+    <div>
+        <div style="font-size:24px;margin:15px 15px;">
+            当前借阅该书的用户：
+        </div>
+        <div style="display: flex; margin: 15px 15px;">
+            @if (ViewBag.borrow_amount != 0)
+            {
+                foreach (var u in ViewBag.borrow)
+                {
+                <a style="margin:10px 20px;">
+                <i class="fa fa-address-card" style="font-size:72px"></i>
+                <div style="font-size:19px;">@u</div>
+                </a>
+                }
+            }
+            else
+            {
+        <div>暂无借阅的用户</div>
+            }
+        </div>
+    </div>
+    <div style="border:1px solid blue;"></div>
+    <div>
+        <div style="font-size:24px;margin:15px 15px;">
+            当前收藏该类书的用户：
+        </div>
+        <div style="display: flex; margin: 15px 15px;">
+            @if (ViewBag.collect_amount != 0)
+            {
+                foreach (var u in ViewBag.collect)
+                {
+                    <a style="margin:10px 20px;">
+                        <i class="fa fa-address-card" style="font-size:72px"></i>
+                        <div style="font-size:19px;">@u</div>
+                    </a>
+                }
+            }
+            else
+            {
+                <div>暂无收藏该类书的用户</div>
+            }
+        </div>
+    </div>
+    <div style="border:1px solid blue;"></div>
+    <div>
+        <div style="font-size:24px;margin:15px 15px;">
+            评论该书的用户：
+        </div>
+        <div style="display: flex; margin: 15px 15px;">
+            @if (ViewBag.command_amount != 0)
+            {
+                foreach (var u in ViewBag.command)
+                {
+                    <a style="margin:10px 20px;">
+                        <i class="fa fa-address-card" style="font-size:72px"></i>
+                        <div style="font-size:19px;">@u</div>
+                    </a>
+                }
+            }
+            else
+            {
+                <div>暂无评论该类书的用户</div>
+            }
+        </div>
+    </div>
+    <div style="border:1px solid blue;"></div>
+    <div>
+        <div style="font-size:24px;margin:15px 15px;">
+            当前预约该书的用户：
+        </div>
+        <div style="display: flex; margin: 15px 15px;">
+            @if (ViewBag.borrow_amount != 0)
+            {
+                foreach (var u in ViewBag.borrow)
+                {
+                    <a style="margin:10px 20px;">
+                        <i class="fa fa-address-card" style="font-size:72px"></i>
+                        <div style="font-size:19px;">@u</div>
+                    </a>
+                }
+            }
+            else
+            {
+                <div>暂无预约该类书的用户</div>
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+@*<script src="~/Scripts/lmq.js"></script>*@
+
+<head>
+    <meta charset="utf-8" />
+
+    @* css样式开始 *@
+    <link href="~/Content/Lmq.css" rel="stylesheet" />
+    @* css样式结束 *@
+
+    @* js开始 *@
+    <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/lmq.js" type="text/javascript"></script>
+    @* js结束 *@
+</head>
+
+<body>
+
+    @* 头部开始 *@
+    <div class="header">
+        <div class="header-container">
+            <div class="top">
+                @* 头部导航 *@
+                <ul class="top-nav">
+                    @*<li><a href="www.baidu.com">首页</a></li>*@
+                    @*<li>
+                        <img src="https://bpic.588ku.com/element_origin_min_pic/19/07/30/5cb9ddf12cc412672a09242091d1befd.jpg" />
+                    </li>*@
+                </ul>
+                @* 标题 *@
+            <div class="top-title">
+                <span id="title-left">管理员（人员）界面</span>
+                @*<span id="title-right">当前在馆人数：@ViewBag.CAPACITY</span>*@
+                @* 前后端交互，显示人数 *@
+            </div>
+                @* 头部个人 *@
+            <a class="top-me" href="/AdministratorPage/Index">
+                @*<img src="#" alt="无法显示头像" style="margin:1px,5px,0px,0px;"/>
+
+        <span title="me">@ViewBag.NAME</span>
+        <span> @Session["admin_id"]</span>*@
+                @if (Session["user_id"] != null)
+                {
+                    <a href="/PersonalPage/Index" style="display: inline-block; color: black;">您好，@Session["user_name"]</a>
+                }
+                else if (Session["admin_id"] != null)
+                {
+                    <a href="/AdministratorPage/Index" style="display: inline-block; color: black;">您好，@Session["admin_name"]</a>
+                }
+                else
+                {
+                    @Html.ActionLink("登录", "UserSignIn", "Sign", "#", new { @class = "my-index1-button" })
+                }
+                
+            </a>
+            </div>
+        </div>
+    </div>
+    @* 头部结束 *@
+
+    @* 业务开始 *@
+<div class="content-container">
+    @* 左侧标签栏 *@
+    <div class="list-left-nav">
+        <ul class="list">
+            <li><a href="#" id="li-1" onclick="checkTab(this.id)">人员查询</a></li>
+            @*<li><a href="#" id="li-2" onclick="checkTab(this.id)">自习室查询</a></li>
+            <li><a href="#" id="li-3" onclick="checkTab(this.id)">人员查询</a></li>*@
+        </ul>
+    </div>
+    @* 查询及表格 *@
+    <div  id="search-1" class="content-middle-search"  >
+        @* 查询框，想先做按钮的一个异步触发器，用IS实现 *@
+        <div  class="search">
+            <form  class="search-form"  method="get" action="/Assistant/Index" onsubmit="return false;">
+                <input onkeydown="if(event.keyCode == 13)excuteSearchBook();"class="search-form-text" type="text" name="keyboard" value="" placeholder="查询人员，输入关键词搜索" />
+                <input onclick="excuteSearchBook()" class="search-form-sbtn" type="button" name="search-btn" value="搜索"  />
+            </form>
+
+
+        </div>
+        @* 表格 默认搜索结果*@
+    <div class="grid" id="div-list">
+        <table class="grid-search-display">
+            <thead id="result-thead">
+                <tr>
+                    <td>姓名</td>
+                    <td>ID</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in ViewBag.DataList)
+                {
+                    <tr>
+                        <td>@item.name</td>
+                        <td>@item.id</td>
+                        <td><a id="@item.id" onclick="forDetail(this.id)">查看详情</a></td>
+                    </tr>
+                }
+
+
+
+            </tbody>
+        </table>
+    </div>
+        @* 翻页 *@
+        @*<div class="page-turn">
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">上一页</a>
+            <a href="#">下一页</a>
+            <a href="#">首页</a>
+            <a href="#">尾页</a>
+            <input type="number" name="page-keyboard" value="" />
+        </div>*@
+    </div>
+    @* 详情及修改 *@
+    <div class="detail" id="detail">
+    </div>
+</div>
+    @* 业务结束 *@
+
+    @* 底部开始 *@
+    @*<div class="footer">
+        <ul>
+            <li>待补充1</li>
+            <li>待补充2</li>
+        </ul>
+    </div>*@
+    @* 底部结束 *@
+</body>
+
+

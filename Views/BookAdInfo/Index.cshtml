@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@using library_admin.Models
+@using library_admin.common
+<div class="my-index-header">
+    <div class="my-index-hc one">
+        <div class="my-index1-l">
+            <div class="my-index1-logo">
+                <a style="font-size:16px;margin-right:30px;color:white;" href="/AdministratorPage/Index">管理员主页</a>
+                <div class="t">
+                    书籍管理
+                </div>
+            </div>
+        </div>
+        <div class="my-index1-r">
+            @Html.ActionLink("添加书籍", "add_book", "BookAdInfo", "#", new { @class = "my-index1-button" })
+        </div>
+    </div>
+</div>
+<div id="my-index3">
+    <div class="my-index3-title">
+        <div class="my-index3-mode">
+            图书搜索
+        </div>
+    </div>
+    <div class="my-index3-seek">
+        @using (Html.BeginForm("Index", "BookAdInfo", FormMethod.Post, new { @class = "my-index3-seekc" }))
+        {
+            @Html.TextBox("search", "", new { @class = "my-index3-kuang" });
+            <input class="my-index3-button" type="submit" value="搜索" />
+        }
+    </div>
+</div>
+<div class="my-intro-container" style="margin-bottom:15px;width:1000px;">
+    @*<div style="border:1px solid blue;"></div>*@
+    <div>
+        <ul class="my-main-text" style="height: 700px; width: 950px;">
+            <li>
+                <div class="my-book">
+                    <div class="my-bookl" style="display:flex;">
+                        <div class="my-book-info" style="width:10%;">
+                            书ID
+                        </div>
+                        <div class="my-book-info" style="width:50%;">
+                            书名
+                        </div>
+                        <div class="my-book-info" style="width:30%;">
+                            ISBN
+                        </div>
+                        <div class="my-book-info" style="width:10%;">
+                            索书号
+                        </div>
+                    </div>
+                </div>
+            </li>
+            @if (ViewBag.book != null)
+            {
+                foreach (admin_book item in (List<admin_book>)ViewBag.book)
+                {
+                    <li>
+                        <div class="my-book" style="border:1px solid blue;border-radius:15px;">
+                            <div class="my-bookl" style="display:flex;">
+                                <div class="my-book-info" style="width:10%;">
+                                    @item.ID
+                                </div>
+                                <div class="my-book-info" style="width: 50%; overflow:hidden;">
+                                    @item.NAME
+                                </div>
+                                <div class="my-book-info" style="width:30%;">
+                                    @item.ISBN
+                                </div>
+                                <div class="my-book-info" style="width:10%;">
+                                    @item.CALL
+                                </div>
+                            </div>
+                            <div style="width:10%;"></div>
+                            <div class="my-bookr" style="display:flex;">
+                                <a class="my-book-modify" href="/Search/Book?isbn=@item.ISBN">查看信息</a>
+                                <a class="my-book-modify" href="/BookAdInfo/borrow_info?book_id=@item.ID">查看借阅</a>
+                                @*<a class="my-book-modify" href="/BookAdInfo/modify_book?book_id=@item.ID">编辑</a>*@
+                                <a id="delete" class="my-book-modify" href="/BookAdInfo/delete_book?book_id=@item.ID">删除</a>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <div>暂无数据</div>
+            }
+        </ul>
+        <div class="my-main-turn">
+            <div class="my-main-turn1">
+                共
+                @ViewBag.amount
+                本书,
+                @ViewBag.pagecount
+                页
+            </div>
+            <div class="my-main-turn2">
+                @MvcHtmlString.Create(pagebar.getpagebar((int)ViewBag.pageindex, (int)ViewBag.pagecount))
+            </div>
+        </div>
+    </div>
+</div>
+
